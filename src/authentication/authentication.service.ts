@@ -188,7 +188,7 @@ export class AuthenticationService {
     const user = await this.jwtVerify(token);
 
     user.password = await bcrypt.hash(password, 10);
-    user.resetToken = '';
+    user.resetToken = null;
     await this.UserRepository.save(user);
 
     return { response: 'Success change password' };

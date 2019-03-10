@@ -1,6 +1,7 @@
-import { Entity, Column, OneToOne } from 'typeorm';
+import { Entity, Column, OneToOne, ManyToOne } from 'typeorm';
 import { Base } from './base.entity';
 import { UserEntity } from './user.entity';
+import { BranchEntity } from './branch.entity';
 
 @Entity('partner')
 export class PartnerEntity extends Base {
@@ -12,4 +13,7 @@ export class PartnerEntity extends Base {
 
   @OneToOne(type => UserEntity, user => user.partner)
   user: UserEntity;
+
+  @ManyToOne(type => BranchEntity, branch => branch.partners)
+  branch: BranchEntity;
 }

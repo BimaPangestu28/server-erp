@@ -1,18 +1,16 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
   BeforeInsert,
   OneToOne,
   JoinColumn,
-  BeforeUpdate,
-  UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { PartnerEntity } from './partner.entity';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { Standart } from './standart.entity';
+import { BranchEntity } from './branch.entity';
 
 @Entity('user')
 export class UserEntity extends Standart {
@@ -46,6 +44,9 @@ export class UserEntity extends Standart {
   @OneToOne(type => PartnerEntity, partner => partner.user)
   @JoinColumn()
   partner: PartnerEntity;
+
+  @OneToMany(type => BranchEntity, branch => branch.user)
+  branches: BranchEntity;
 
   @BeforeInsert()
   async hashPassword() {
